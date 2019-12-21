@@ -9,6 +9,10 @@ mkdir -p ${CWD}/data/rabbitmq
 
 #清空Mysql数据
 sudo rm -rf ${CWD}/data/mysql/*
+#清空Redis数据
+sudo rm -rf ${CWD}/data/redis/*
+#清空RabbitMq数据
+sudo rm -rf ${CWD}/data/rabbitmq/
 
 docker-compose -f $CWD/compose/dev.yaml down
 docker-compose -f $CWD/compose/dev.yaml up -d

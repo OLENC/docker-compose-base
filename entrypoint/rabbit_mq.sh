@@ -25,9 +25,9 @@ apt install vim iproute2 curl wget netcat htop jq xargs sudo -y
 rabbitmq-server start &
 sleep 20
 rabbitmq-plugins enable rabbitmq_management
-rabbitmqctl add_user vanchu fanqu2010
-rabbitmqctl set_user_tags vanchu administrator
-rabbitmqctl set_permissions -p "/" vanchu ".*" ".*" ".*"
+rabbitmqctl add_user colen 123456
+rabbitmqctl set_user_tags colen administrator
+rabbitmqctl set_permissions -p "/" colen ".*" ".*" ".*"
 
 eval $@
 tail -f /dev/null
