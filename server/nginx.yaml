@@ -1,0 +1,19 @@
+version: "2.1"
+services:
+  nginx:
+    image: nginx:1.17.6
+    tty: true
+    stdin_open: true
+    environment:
+      - LC_ALL=C.UTF-8
+      - TZ='Asia/Shanghai'
+    volumes:
+      - ../config/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ../config/nginx/sites-enabled:/etc/nginx/sites-enabled
+      - ../config/nginx/ssl:/etc/nginx/ssl
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+      - ../script/j:/usr/bin/j
+      - ../script/fzf:/usr/bin/fzf         
+      - ../entrypoint/nginx.sh:/usr/bin/nginx_entrypoint.sh
+    entrypoint: /usr/bin/nginx_entrypoint.sh   

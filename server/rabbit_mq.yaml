@@ -1,0 +1,19 @@
+version: "2.1"
+services:
+  rabbitmq:
+    image: rabbitmq:3.7.3-rc.2
+    tty: true
+    stdin_open: true
+    volumes:
+      - ../config/rabbitmq/rabbitmq-env.conf:/etc/rabbitmq/rabbitmq-env.conf
+      - ../config/rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config
+      - ../data/rabbitmq:/data/rabbitmq
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+      - ../script/j:/usr/bin/j
+      - ../script/fzf:/usr/bin/fzf
+      - ../entrypoint/rabbit_mq.sh:/usr/bin/rabbit_mq_entrypoint.sh
+    entrypoint: /usr/bin/rabbit_mq_entrypoint.sh         
+    environment:
+      - LC_ALL=C.UTF-8
+      - TZ='Asia/Shanghai'       

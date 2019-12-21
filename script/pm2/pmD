@@ -1,0 +1,11 @@
+#! /bin/bash
+target=$(
+    pm2 l |
+        awk '{print $4}' |
+        grep -E '[^(name)|\s+|(`pm2)]' |
+        fzf -m
+)
+
+if [ -n "${target}" ]; then
+    pm2 delete ${target}
+fi

@@ -1,0 +1,18 @@
+version: "2.1"
+services:
+  mysql:
+    image: mysql:8.0.13
+    environment:
+      - LC_ALL=C.UTF-8
+      - TZ='Asia/Shanghai'
+    tty: true
+    stdin_open: true
+    volumes:
+      - ../config/mysql:/etc/mysql/conf.d
+      - ../data/mysql:/data/mysql
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+      - ../script/j:/usr/bin/j
+      - ../script/fzf:/usr/bin/fzf
+      - ../entrypoint/mysql.sh:/usr/bin/mysql_entrypoint.sh
+    entrypoint: /usr/bin/mysql_entrypoint.sh

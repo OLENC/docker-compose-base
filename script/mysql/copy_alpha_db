@@ -1,0 +1,19 @@
+#!/bin/bash
+BACKUP_FILE=/tmp/dump.sql
+HOST=0.0.0.0
+# 备份数据库
+mysql -uroot -h ${HOST} -e "show databases;" |
+    grep "db" |
+    xargs -I '{}' mysqldump --column-statistics=0 -u root --databases '{}' \
+        --ignore-table=db_common_tcp.r_delayed_job \
+        --ignore-table=db_common_tcp.o_job
+>$BACKUP_FILE
+# 导入数据库
+mysql -uroot -e
+"SET GLOBAL innodb_flush_log_at_trx_commit=0
+SET GLOBAL sync_binlog=0
+SET sql_log_bin=off
+source ${BACKUP_FILE}
+SET GLOBAL innodb_flush_log_at_trx_commit=1
+SET GLOBAL sync_binlog=1
+"

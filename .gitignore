@@ -1,0 +1,6 @@
+/data/mysql
+/data/project
+/data/rabbitmq
+/data/redis
+/data/nginx
+/config/nginx/client_ssh_key

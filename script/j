@@ -1,0 +1,16 @@
+#!/bin/bash
+DOCKER_NAME=$(sudo docker network inspect compose_ins | jq -r '.[0].Containers[].Name' | sort | fzf)
+case $DOCKER_NAME in
+*-project-*)
+    USER_NAME=node
+    WORK_DIR=/home/node
+    ;;
+'')
+    exit -1
+    ;;
+*)
+    USER_NAME=root
+    WORK_DIR=/root
+    ;;
+esac
+sudo docker exec --user $USER_NAME --workdir $WORK_DIR -it $DOCKER_NAME /bin/bash

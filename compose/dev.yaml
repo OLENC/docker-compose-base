@@ -1,0 +1,81 @@
+version: "2.1"
+services:
+  nginx-master:
+    extends:
+      file: ../server/nginx.yaml
+      service: nginx
+    container_name: alpha-nginx-master
+    hostname: nginx-master
+    depends_on:
+      - project-common
+      - project-core
+      - project-h5
+    # ports:
+    # - 2730:2730
+    # - 2729:2729
+    # - 8000:8000
+    # - 8002:8002
+    # - 8004:8004
+    # - 2370:2370
+    # - 2829:2829
+    # - 22:22
+    volumes:
+      - ../config/nginx/client_ssh_key:/root/client_ssh_key
+      - ../config/nginx/ssh_key:/root/ssh_key
+      - ../data/nginx/ssh:/etc/ssh
+    networks:
+      - dev-ins
+    command:
+      #安装ssh
+      - echo "2" | apt install openssh-server -y; #2. keep the local version currently installed
+      - echo -e "Port 22\nPubkeyAuthentication yes\nPermitRootLogin no" >> /etc/ssh/sshd_config;
+      - mkdir -p /run/sshd;
+      - /usr/sbin/sshd;
+      - useradd test -m -d /home/test -s /bin/bash;
+      - echo "test:test" | chpasswd;
+      - echo -e "alias ll='ls -l'\nexport LC_ALL=C.UTF-8" >> /home/test/.bashrc;
+      - source /home/test/.bashrc;
+      #写入客户端们登录公钥
+      - mkdir /home/test/.ssh;
+      - cp /root/ssh_key/* /home/test/.ssh/;
+      - touch /home/test/.ssh/authorized_keys;
+      - grep -h '' /root/client_ssh_key/ -R > /home/test/.ssh/authorized_keys;
+      - chown -R test:test /home/test/.ssh;
+      - chmod 700 /home/test/.ssh;
+      - chmod 600 /home/test/.ssh/authorized_keys;
+      #test账户拥有sudo权限
+      - chmod u+w /etc/sudoers;
+      - echo "test ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers;
+
+  redis-master:
+    extends:
+      file: ../server/redis.yaml
+      service: redis
+    container_name: alpha-redis-master
+    hostname: redis-master
+    networks:
+      - dev-ins
+
+  mysql-master:
+    extends:
+      file: ../server/mysql.yaml
+      service: mysql
+    container_name: dev-mysql-master
+    hostname: mysql-master
+    networks:
+      - dev-ins
+
+  rabbit-mq-master:
+    extends:
+      file: ../server/rabbit_mq.yaml
+      service: rabbitmq
+    container_name: alpha-rabbit-mq-master
+    hostname: rabbit-mq-master
+    networks:
+      - dev-ins
+
+networks:
+  dev-ins:
+    ipam:
+      config:
+        - subnet: 172.22.0.0/16

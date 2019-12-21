@@ -1,0 +1,41 @@
+#api
+server {
+    listen 2730;
+    server_name 0.0.0.0;
+    client_max_body_size 10M;
+    access_log /var/log/nginx/api.access.log;
+    error_log /var/log/nginx/api.error.log;
+
+    location ~ / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://project:2730;      
+    }
+}
+
+#伪静态资源服务器
+server {                                                                                                                                                                      
+    listen 8002;
+    server_name 0.0.0.0;
+    client_max_body_size 10M;
+    access_log /var/log/nginx/srm.access.log;
+    error_log /var/log/nginx/srm.error.log;
+
+    location ~ / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://project-common:8002;      
+    }
+}
+ 
+#rabbit mq management
+server {                                                                                                                                                                      
+    listen 15672;
+    server_name 0.0.0.0;
+    client_max_body_size 10M;
+    access_log /var/log/nginx/rabbit-mq-management.access.log;
+    error_log /var/log/nginx/rabbit-mq-management.error.log;
+
+    location ~ / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://rabbit-mq-master:15672;      
+    }  
+}

@@ -1,0 +1,16 @@
+version: "2.1"
+services:
+  project:
+    image: node:10.15.0
+    tty: true
+    stdin_open: true
+    environment:
+      - LC_ALL=C.UTF-8
+      - TZ='Asia/Shanghai'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker   
+      - ../script/j:/usr/bin/j
+      - ../script/fzf:/usr/bin/fzf
+      - ../entrypoint/project.sh:/usr/bin/project_entrypoint.sh
+    entrypoint: /usr/bin/project_entrypoint.sh
