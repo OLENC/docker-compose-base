@@ -9,7 +9,7 @@ echo "deb http://mirrors.aliyun.com/debian-security stretch/updates main contrib
 echo "deb-src http://mirrors.aliyun.com/debian-security stretch/updates main contrib non-free" >>/etc/apt/sources.list
 apt update
 dpkg --configure -a
-apt install vim iproute2 curl wget netcat htop telnet cron openssh-server jq xargs sudo -y
+apt install vim iproute2 curl wget netcat htop telnet cron openssh-server jq sudo -y
 npm config set registry https://registry.npm.taobao.org
 npm install yarn pm2 easy-deploy-tool -g
 #启动定时任务

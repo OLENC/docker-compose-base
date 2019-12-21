@@ -11,9 +11,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker
       - ../script/j:/usr/bin/j
+      - ../script/get_docker_network_name:/usr/bin/get_docker_network_name
       - ../script/fzf:/usr/bin/fzf
       - ../entrypoint/rabbit_mq.sh:/usr/bin/rabbit_mq_entrypoint.sh
-    entrypoint: /usr/bin/rabbit_mq_entrypoint.sh         
+    entrypoint: /usr/bin/rabbit_mq_entrypoint.sh
     environment:
       - LC_ALL=C.UTF-8
-      - TZ='Asia/Shanghai'       
+      - TZ='Asia/Shanghai'

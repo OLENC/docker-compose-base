@@ -10,7 +10,7 @@ echo "deb http://mirrors.aliyun.com/debian-security jessie/updates main contrib 
 echo "deb-src http://mirrors.aliyun.com/debian-security jessie/updates main contrib non-free" >>/etc/apt/sources.list
 apt update
 dpkg --configure -a
-apt install procps vim iproute2 curl wget netcat htop jq net-tools xargs sudo -y
+apt install procps vim iproute2 curl wget netcat htop jq net-tools sudo -y
 chown mysql:mysql /data/mysql
 
 echo -e "alias ll='ls -l'\nexport LC_ALL=C.UTF-8\nTZ='Asia/Shanghai'" >>/root/.bashrc

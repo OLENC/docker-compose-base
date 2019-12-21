@@ -1,5 +1,5 @@
 #!/bin/bash
-DOCKER_NAME=$(sudo docker network inspect compose_ins | jq -r '.[0].Containers[].Name' | sort | fzf)
+DOCKER_NAME=$(get_docker_network_name)
 case $DOCKER_NAME in
 *-project-*)
     USER_NAME=node

@@ -20,7 +20,7 @@ echo "deb http://mirrors.aliyun.com/debian-security buster/updates main contrib 
 
 apt update
 dpkg --configure -a
-apt install vim iproute2 curl wget netcat htop jq xargs sudo -y
+apt install vim iproute2 curl wget netcat htop jq sudo -y
 
 rabbitmq-server start &
 sleep 20

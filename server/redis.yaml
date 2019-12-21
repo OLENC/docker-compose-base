@@ -6,13 +6,14 @@ services:
     stdin_open: true
     environment:
       - LC_ALL=C.UTF-8
-      - TZ='Asia/Shanghai'    
+      - TZ='Asia/Shanghai'
     volumes:
       - ../config/redis:/data/redis/config
       - ../data/redis:/data/redis/data
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker
       - ../script/j:/usr/bin/j
-      - ../script/fzf:/usr/bin/fzf         
+      - ../script/get_docker_network_name:/usr/bin/get_docker_network_name
+      - ../script/fzf:/usr/bin/fzf
       - ../entrypoint/redis.sh:/usr/bin/redis_entrypoint.sh
-    entrypoint: /usr/bin/redis_entrypoint.sh  
+    entrypoint: /usr/bin/redis_entrypoint.sh
