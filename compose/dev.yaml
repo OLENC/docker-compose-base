@@ -4,7 +4,7 @@ services:
     extends:
       file: ../server/nginx.yaml
       service: nginx
-    container_name: alpha-nginx-master
+    container_name: dev-nginx-master
     hostname: nginx-master
     # depends_on:
     #   - project-common
@@ -51,7 +51,7 @@ services:
     extends:
       file: ../server/redis.yaml
       service: redis
-    container_name: alpha-redis-master
+    container_name: dev-redis-master
     hostname: redis-master
     networks:
       - dev-ins
@@ -69,7 +69,7 @@ services:
     extends:
       file: ../server/rabbit_mq.yaml
       service: rabbitmq
-    container_name: alpha-rabbit-mq-master
+    container_name: dev-rabbit-mq-master
     hostname: rabbit-mq-master
     networks:
       - dev-ins
