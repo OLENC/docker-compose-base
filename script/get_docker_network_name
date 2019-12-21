@@ -8,7 +8,7 @@ docker network ls | # 获取网卡列表
     grep $(
         ip route |
         awk '{print $1}' | # 打印ip
-        grep 172 | # 过滤 第一组的ip
+        grep 172 | # 过滤 第一组为172的ip
         awk '{split($0,a,/./); print a[1]"."a[2]}' # 找到第一组第二组
     ) |
         awk '{print $1}' |
