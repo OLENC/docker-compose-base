@@ -6,10 +6,10 @@ services:
       service: nginx
     container_name: alpha-nginx-master
     hostname: nginx-master
-    depends_on:
-      - project-common
-      - project-core
-      - project-h5
+    # depends_on:
+    #   - project-common
+    #   - project-core
+    #   - project-h5
     # ports:
     # - 2730:2730
     # - 2729:2729
