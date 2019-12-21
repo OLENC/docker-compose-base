@@ -1,16 +1,16 @@
 #!/bin/bash
-docker network ls | # 获取网卡列表
-    grep compose | # 过滤compose 的网卡
-    awk 'BEGIN{a=""}{a=a" "$2}END{print a}' | # 将网卡1 2 3 空格开
+docker network ls |
+    grep compose |
+    awk 'BEGIN{a=""}{a=a" "$2}END{print a}' |
     xargs docker network inspect | # docker network inspect networkName1 networkName2
-    jq '.[].Containers[]|.Name + " " + .IPv4Address' -r | # dev-nginx-master 172.22.0.2/16
-    # 过滤与本机第一、二组ip相同的容器
+    jq '.[].Containers[]|.Name + " " + .IPv4Address' -r | # joint: dev-nginx-master 172.22.0.2/16
+    # filtr：与本机第一、二组ip相同的容器 172.22
     grep $(
         ip route |
-        awk '{print $1}' | # 打印ip
-        grep 172 | # 过滤 第一组为172的ip
-        awk '{split($0,a,/./); print a[1]"."a[2]}' # 找到第一组第二组
-    ) |
         awk '{print $1}' |
+        grep 172 |
+        awk '{split($0,a,/./); print a[1]"."a[2]}' # find: 第一组第二组
+    ) |
+        awk '{print $1}' | # dev-nginx-master
         sort |
         fzf

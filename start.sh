@@ -55,6 +55,7 @@ docker exec -i ${ENV}-mysql-master sh -c "mysql -e \"use mysql;CREATE USER 'root
 # git checkout .
 # git pull
 
+# 设置文件权限
 # docker exec -i --workdir /home/node ${ENV}-project-${PROJECT_NAME} sh -c "chown node:node projects -R"
 # # 启动项目
 # docker exec --user=node -i --workdir /home/node/projects/${PROJECT_NAME} ${ENV}-project-${PROJECT_NAME} yarn
