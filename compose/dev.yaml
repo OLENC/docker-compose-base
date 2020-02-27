@@ -10,15 +10,16 @@ services:
     #   - project-common
     #   - project-core
     #   - project-h5
-    # ports:
-    # - 2730:2730
-    # - 2729:2729
-    # - 8000:8000
-    # - 8002:8002
-    # - 8004:8004
-    # - 2370:2370
-    # - 2829:2829
-    # - 22:22
+    ports:
+      # - 2730:2730
+      # - 2729:2729
+      # - 8000:8000
+      # - 8002:8002
+      # - 8004:8004
+      # - 2370:2370
+      # - 2829:2829
+      - 22:22
+      - 80:80
     volumes:
       - ../config/nginx/client_ssh_key:/root/client_ssh_key
       - ../config/nginx/ssh_key:/root/ssh_key
@@ -55,6 +56,8 @@ services:
     hostname: redis-master
     networks:
       - dev-ins
+    ports:
+      - 6379:6379
 
   mysql-master:
     extends:
@@ -64,15 +67,19 @@ services:
     hostname: mysql-master
     networks:
       - dev-ins
+    ports:
+      - 3306:3306
 
-  rabbit-mq-master:
-    extends:
-      file: ../server/rabbit_mq.yaml
-      service: rabbitmq
-    container_name: dev-rabbit-mq-master
-    hostname: rabbit-mq-master
-    networks:
-      - dev-ins
+  # rabbit-mq-master:
+  #   extends:
+  #     file: ../server/rabbit_mq.yaml
+  #     service: rabbitmq
+  #   container_name: dev-rabbit-mq-master
+  #   hostname: rabbit-mq-master
+  #   networks:
+  #     - dev-ins
+  #   ports:
+  #     - 36001:36001
 
 networks:
   dev-ins:

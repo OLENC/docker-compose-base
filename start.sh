@@ -1,6 +1,6 @@
 #!/bin/bash
 CWD=$(cd "$(dirname "$0")" && pwd)
-ENV="dev"
+ENV="$1"
 PROD_BACKUP_DIR="/home/docker/docker/data/"
 
 mkdir -p ${CWD}/data/mysql
@@ -18,8 +18,8 @@ sudo rm -rf ${CWD}/data/rabbitmq/
 # rm -rf ${CWD}/data/project/${PROJECT_NAME}/*
 
 # 拉起docker
-docker-compose -f $CWD/compose/dev.yaml down
-docker-compose -f $CWD/compose/dev.yaml up -d
+docker-compose -f $CWD/compose/${ENV}.yaml down
+docker-compose -f $CWD/compose/${ENV}.yaml up -d
 
 echo "初始化Mysql数据库..."
 docker exec -i ${ENV}-mysql-master sh -c "mysqld --initialize-insecure --basedir=/usr/bin --datadir=/data/mysql/data  --user=mysql"
@@ -33,7 +33,8 @@ echo "启动Mysql服务..."
 #         break
 #     else
 docker exec -i ${ENV}-mysql-master sh -c "mysqld &"
-sleep 10 # mysql启动有延迟
+sleep 15 # mysql启动有延迟 十秒可能还不够会出现无法连接的情况
+# ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/data/mysql/mysql.sock' (2)
 # fi
 # done
 
@@ -59,5 +60,5 @@ docker exec -i ${ENV}-mysql-master sh -c "mysql -e \"use mysql;CREATE USER 'root
 # docker exec -i --workdir /home/node ${ENV}-project-${PROJECT_NAME} sh -c "chown node:node projects -R"
 # # 启动项目
 # docker exec --user=node -i --workdir /home/node/projects/${PROJECT_NAME} ${ENV}-project-${PROJECT_NAME} yarn
-# docker exec --user=node -i --workdir /home/node/projects/${PROJECT_NAME} ${ENV}-project-${PROJECT_NAME} yarn run start:dev
+# docker exec --user=node -i --workdir /home/node/projects/${PROJECT_NAME} ${ENV}-project-${PROJECT_NAME} yarn run start:${ENV}
 # echo "服务已启动"
