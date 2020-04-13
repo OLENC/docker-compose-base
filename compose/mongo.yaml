@@ -1,0 +1,17 @@
+version: "2.1"
+services:
+  mongo:
+    extends:
+      file: ../server/mongo.yaml
+      service: mongo
+    container_name: dev-mongo-master
+    hostname: mongo-master
+    # networks:
+    # - dev-ins
+    ports:
+      - 27017:27017
+networks:
+  dev-ins:
+    ipam:
+      config:
+        - subnet: 172.22.0.0/16

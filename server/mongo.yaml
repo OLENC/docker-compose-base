@@ -1,0 +1,20 @@
+version: "2.1"
+services:
+  mongo:
+    image: mongo:latest
+    tty: true
+    stdin_open: true
+    environment:
+      - LC_ALL=C.UTF-8
+      - TZ='Asia/Shanghai'
+    volumes:
+      - ../config/mongo:/data/mongo/config
+      - ../data/mongo:/data/mongo/data
+      - ../config/mongo/key_file:/opt/keyfile
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/local/bin/docker:/usr/bin/docker
+      - ../script/j:/usr/bin/j
+      - ../script/get_docker_network_name:/usr/bin/get_docker_network_name
+      - ../script/fzf:/usr/bin/fzf
+      - ../entrypoint/mongo.sh:/usr/bin/mongo_entrypoint.sh
+    entrypoint: /usr/bin/mongo_entrypoint.sh

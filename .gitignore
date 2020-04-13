@@ -1,4 +1,5 @@
 /data/mysql
+/data/mongo
 /data/project
 /data/rabbitmq
 /data/redis
