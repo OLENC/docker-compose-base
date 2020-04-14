@@ -16,4 +16,9 @@ build-docker-compose-base/script/mysql/copy_{ENV}_db
 mac docker路径不同 需修改server下的dockerfile
 /usr/bin/docker:/usr/bin/docker改为/usr/local/bin/docker:/usr/bin/docker
 /var/run/docker.sock:/var/run/docker.sock改为/var/run/docker.sock:/var/run/docker.sock
+# FQA
+
+1. ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/data/mysql/mysql.sock' (2)
+    mysql启动有延迟,十秒可能还不够会出现无法连接的情况
+
 # 鸣谢

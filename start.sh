@@ -1,6 +1,12 @@
 #!/bin/bash
+
+if [ $# -eq 0 ]; then
+    echo -e "USAGE:./$(basename "$0") <dev|prod|pre|beta|gamma>"
+    exit -1
+fi
+
 CWD=$(cd "$(dirname "$0")" && pwd)
-ENV="$1"
+ENV=$1
 PROD_BACKUP_DIR="/home/docker/docker/data/"
 
 mkdir -p ${CWD}/data/mysql
@@ -33,8 +39,7 @@ echo "启动Mysql服务..."
 #         break
 #     else
 docker exec -i ${ENV}-mysql-master sh -c "mysqld &"
-sleep 15 # mysql启动有延迟 十秒可能还不够会出现无法连接的情况
-# ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/data/mysql/mysql.sock' (2)
+sleep 15 # mysql启动有延迟
 # fi
 # done
 
