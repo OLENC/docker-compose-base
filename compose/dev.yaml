@@ -70,16 +70,27 @@ services:
     ports:
       - 3306:3306
 
-  # rabbit-mq-master:
-  #   extends:
-  #     file: ../server/rabbit_mq.yaml
-  #     service: rabbitmq
-  #   container_name: dev-rabbit-mq-master
-  #   hostname: rabbit-mq-master
-  #   networks:
-  #     - dev-ins
-  #   ports:
-  #     - 36001:36001
+    # rabbit-mq-master:
+    #   extends:
+    #     file: ../server/rabbit_mq.yaml
+    #     service: rabbitmq
+    #   container_name: dev-rabbit-mq-master
+    #   hostname: rabbit-mq-master
+    #   networks:
+    #     - dev-ins
+    #   ports:
+    #     - 36001:36001
+
+  mongo:
+    extends:
+      file: ../server/mongo.yaml
+      service: mongo
+    container_name: dev-mongo-master
+    hostname: mongo-master
+    networks:
+      - dev-ins
+    ports:
+      - 27017:27017
 
 networks:
   dev-ins:
