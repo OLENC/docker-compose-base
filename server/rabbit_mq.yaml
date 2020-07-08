@@ -14,6 +14,7 @@ services:
       - ../script/get_docker_network_name:/usr/bin/get_docker_network_name
       - ../script/fzf:/usr/bin/fzf
       - ../entrypoint/rabbit_mq.sh:/usr/bin/rabbit_mq_entrypoint.sh
+      - ../entrypoint/bash.sh:/usr/bin/bash.sh
     entrypoint: /usr/bin/rabbit_mq_entrypoint.sh
     environment:
       - LC_ALL=C.UTF-8

@@ -1,7 +1,7 @@
 version: "2.1"
 services:
   mongo:
-    image: mongo:latest
+    image: mongo:4.2.8
     tty: true
     stdin_open: true
     environment:
@@ -17,4 +17,5 @@ services:
       - ../script/get_docker_network_name:/usr/bin/get_docker_network_name
       - ../script/fzf:/usr/bin/fzf
       - ../entrypoint/mongo.sh:/usr/bin/mongo_entrypoint.sh
+      - ../entrypoint/bash.sh:/usr/bin/bash.sh
     entrypoint: /usr/bin/mongo_entrypoint.sh

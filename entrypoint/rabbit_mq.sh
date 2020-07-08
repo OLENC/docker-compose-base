@@ -1,17 +1,5 @@
 #!/bin/bash
-echo -e "alias ll='ls -l'\nexport LC_ALL=C.UTF-8\nTZ='Asia/Shanghai'" >>/root/.bashrc
-source /root/.bashrc
-#设置时区
-cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-mv /etc/apt/sources.list /etc/apt/sources.list.bak
-echo "deb http://mirrors.aliyun.com/debian/ stretch main non-free contrib" >/etc/apt/sources.list
-echo "deb http://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib" >>/etc/apt/sources.list
-echo "deb http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib" >>/etc/apt/sources.list
-echo "deb-src http://mirrors.aliyun.com/debian/ stretch main non-free contrib" >>/etc/apt/sources.list
-echo "deb-src http://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib" >>/etc/apt/sources.list
-echo "deb-src http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib" >>/etc/apt/sources.list
-echo "deb http://mirrors.aliyun.com/debian-security/ stretch/updates main non-free contrib" >>/etc/apt/sources.list
-echo "deb-src http://mirrors.aliyun.com/debian-security/ stretch/updates main non-free contrib" >>/etc/apt/sources.list
+source /usr/bin/bash.sh
 
 mv /etc/apt/sources.list.d/buster.list /etc/apt/sources.list.d/buster.list.bak
 echo "deb http://mirrors.aliyun.com/debian buster main contrib non-free" >>/etc/apt/sources.list.d/buster.list

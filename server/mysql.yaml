@@ -16,4 +16,5 @@ services:
       - ../script/get_docker_network_name:/usr/bin/get_docker_network_name
       - ../script/fzf:/usr/bin/fzf
       - ../entrypoint/mysql.sh:/usr/bin/mysql_entrypoint.sh
+      - ../entrypoint/bash.sh:/usr/bin/bash.sh
     entrypoint: /usr/bin/mysql_entrypoint.sh
