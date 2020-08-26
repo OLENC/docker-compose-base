@@ -7,7 +7,7 @@ chown 999 mongodb-keyfile
 
 apt update
 dpkg --configure -a
-apt install procps vim iproute2 telnet curl wget netcat htop jq net-tools sudo -y
+apt install procps vim iproute2 telnet wget netcat htop jq net-tools sudo -y
 
 mongod -f /data/mongo/config/my.cnf
 

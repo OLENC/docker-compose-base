@@ -65,6 +65,8 @@ services:
       service: mysql
     container_name: dev-mysql-master
     hostname: mysql-master
+    volumes:
+      - ../script/mysql/copy_dev_db:/usr/bin/copy_db
     networks:
       - dev-ins
     ports:
