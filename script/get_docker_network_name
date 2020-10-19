@@ -1,16 +1,21 @@
 #!/bin/bash
-docker network ls |
-    grep compose |
+QUERY=""
+if [[ $# -ne 0 ]]; then
+    QUERY="$1"
+fi
+
+sudo docker network ls |
+    grep silver |
     awk 'BEGIN{a=""}{a=a" "$2}END{print a}' |
-    xargs docker network inspect | # docker network inspect networkName1 networkName2
-    jq '.[].Containers[]|.Name + " " + .IPv4Address' -r | # joint: dev-nginx-master 172.22.0.2/16
+    xargs sudo docker network inspect |                   # docker network inspect networkName1 networkName2
+    jq '.[].Containers[]|.Name + " " + .IPv4Address' -r | # joint: dev-nginx-master 172.66.0.2/24
     # filtr：与本机第一、二组ip相同的容器 172.22
     grep $(
         ip route |
-        awk '{print $1}' |
-        grep 172 |
-        awk '{split($0,a,/./); print a[1]"."a[2]}' # find: 第一组第二组
+            awk '{print $1}' |
+            grep 172 |
+            awk '{split($0,a,"."); print a[1]"."a[2]"."a[3]}' # find: 第一组第二组第三组
     ) |
-        awk '{print $1}' | # dev-nginx-master
-        sort |
-        fzf
+    awk '{print $1}' | # dev-nginx-master
+    sort |
+    fzf -q "$QUERY" -1

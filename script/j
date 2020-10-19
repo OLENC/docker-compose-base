@@ -1,9 +1,9 @@
 #!/bin/bash
-DOCKER_NAME=$(get_docker_network_name)
+DOCKER_NAME=$(get_docker_network_name $1)
 case $DOCKER_NAME in
-*-project-*)
+*project-*)
     USER_NAME=node
-    WORK_DIR=/home/node
+    WORK_DIR=/home/node/projects
     ;;
 '')
     exit -1
