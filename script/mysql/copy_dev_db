@@ -1,14 +1,14 @@
 #!/bin/bash
 BACKUP_FILE=/tmp/dump.sql
 HOST=0.0.0.0
+PASSWORD=''
 
 echo "开始备份数据库..."
-mysql -uroot -h ${HOST} -e "show databases" |
-    grep "db_silver" |
-    xargs -I '{}' mysqldump --column-statistics=0 -uroot -h ${HOST} --databases '{}' \
+mysql -uroot -h ${HOST} -e "show databases" -p${PASSWORD} |
+    grep "keepwork-rls" |
+    xargs -I '{}' mysqldump --column-statistics=0 -uroot -h ${HOST} --databases '{}' -p${PASSWORD} \
         --default-character-set=utf8 --max_allowed_packet=48M \
-        --ignore-table=db_silver_ins_common_tcp.r_delayed_job \
-        --ignore-table=db_silver_ins_common_tcp.o_job \
+        --set-gtid-purged=OFF \
         >$BACKUP_FILE
 echo "备份数据库完成"
 
@@ -20,3 +20,7 @@ source /tmp/dump.sql;
 SET GLOBAL innodb_flush_log_at_trx_commit=1;
 SET GLOBAL sync_binlog=1;"
 echo "导入数据库完成"
+
+# mysqldump参数
+# --set-gtid-purged=OFF: 记录binlog日志,如果不加,不记录binlog日志（用了gtid的情况）
+# --ignore-table=databaseName.tableName: 忽略的表
