@@ -1,0 +1,23 @@
+version: "3"
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    depends_on: [zookeeper]
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_CREATE_TOPICS: "test:1:1"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      # - /var/run/docker.sock:/var/run/docker.sock
+      # - /usr/local/bin/docker:/usr/bin/docker
+      - ../script/j:/usr/bin/j
+      - ../script/get_docker_network_name:/usr/bin/get_docker_network_name
+      - ../script/fzf:/usr/bin/fzf
+      - ../entrypoint/bash.sh:/usr/bin/bash.sh
+    platform: linux/x86_64

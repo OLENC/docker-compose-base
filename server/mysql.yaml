@@ -11,10 +11,11 @@ services:
       - ../config/mysql:/etc/mysql/conf.d
       - ../data/mysql:/data/mysql
       - /var/run/docker.sock:/var/run/docker.sock
-      - /usr/bin/docker:/usr/bin/docker
+      - /usr/local/bin/docker:/usr/bin/docker
       - ../script/j:/usr/bin/j
       - ../script/get_docker_network_name:/usr/bin/get_docker_network_name
       - ../script/fzf:/usr/bin/fzf
       - ../entrypoint/mysql.sh:/usr/bin/mysql_entrypoint.sh
       - ../entrypoint/bash.sh:/usr/bin/bash.sh
     entrypoint: /usr/bin/mysql_entrypoint.sh
+    platform: linux/x86_64

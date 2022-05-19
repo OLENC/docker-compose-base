@@ -9,7 +9,7 @@ services:
       - ../config/rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config
       - ../data/rabbitmq:/data/rabbitmq
       - /var/run/docker.sock:/var/run/docker.sock
-      - /usr/bin/docker:/usr/bin/docker
+      - /usr/local/bin/docker:/usr/bin/docker
       - ../script/j:/usr/bin/j
       - ../script/get_docker_network_name:/usr/bin/get_docker_network_name
       - ../script/fzf:/usr/bin/fzf
@@ -19,3 +19,4 @@ services:
     environment:
       - LC_ALL=C.UTF-8
       - TZ='Asia/Shanghai'
+    # platform: linux/x86_64
