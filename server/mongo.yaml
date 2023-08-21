@@ -1,7 +1,7 @@
 version: "2.1"
 services:
   mongo:
-    image: mongo:4.2.8
+    image: mongo:5.0.14
     tty: true
     stdin_open: true
     environment:
@@ -18,5 +18,6 @@ services:
       - ../script/fzf:/usr/bin/fzf
       - ../entrypoint/mongo.sh:/usr/bin/mongo_entrypoint.sh
       - ../entrypoint/bash.sh:/usr/bin/bash.sh
+      - ../entrypoint/bash_stretch.sh:/usr/bin/bash_stretch.sh
     entrypoint: /usr/bin/mongo_entrypoint.sh
-    platform: linux/x86_64
+    platform: linux/amd64

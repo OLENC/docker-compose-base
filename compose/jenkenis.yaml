@@ -1,0 +1,16 @@
+version: "1"
+services:
+  jenkins:
+    extends:
+      file: ../server/jenkins.yaml
+      service: jenkins
+    container_name: jenkins-master
+    hostname: jenkins-master
+    ports:
+      - 8080:8080
+      - 50000:50000
+# networks:
+#   dev-ins:
+#     ipam:
+#       config:
+#         - subnet: 172.22.0.0/16container_name

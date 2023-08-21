@@ -1,0 +1,22 @@
+version: "1"
+services:
+  jenkins:
+    user: root
+    image: jenkins/jenkins:lts
+    tty: true
+    stdin_open: true
+    environment:
+      - LC_ALL=C.UTF-8
+      - TZ='Asia/Shanghai'
+    volumes:
+      - ../data/jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/local/bin/docker:/usr/bin/docker
+      - ../script/j:/usr/bin/j
+      - ../script/get_docker_network_name:/usr/bin/get_docker_network_name
+      - ../script/fzf:/usr/bin/fzf
+      - ../entrypoint/jenkins.sh:/usr/bin/jenkins_entrypoint.sh
+      # - ../entrypoint/bash.sh:/usr/bin/bash.sh
+    entrypoint: /usr/bin/jenkins_entrypoint.sh
+    privileged: true
+    user: root
